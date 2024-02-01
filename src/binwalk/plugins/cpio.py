@@ -44,7 +44,7 @@ class CPIOPlugin(binwalk.core.plugin.Plugin):
             return False
 
         try:
-            result = subprocess.call(['cpio', '-d', '-i', '--no-absolute-filenames'],
+            result = subprocess.call(['cpio', '-d', '-i', '--preserve-modification-time', '--no-absolute-filenames'],
                                      stdin=fpin,
                                      stderr=fperr,
                                      stdout=fperr)
