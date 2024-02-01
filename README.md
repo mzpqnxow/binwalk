@@ -8,6 +8,13 @@
 Binwalk is a fast, easy to use tool for analyzing, reverse engineering, and extracting firmware images.
 
 
+### *** Fork Notes ***
+
+- Adds compat with Python 3.11 (trivial change)
+- Fixes reference to ubireader github repo (master -> main)
+  - **WARN** ubifs extraction still seems brokern in some (all?) cases; manually unpack a UBI image with `ubireader_extract_images -o outdir infile.ubi`
+- TODO: Merge patch for failed sasquatch build on modern gcc/clang (sent upstream to either binwalk or sasquatch)
+
 ### *** Extraction Security Notice ***
 
 Prior to Binwalk v2.3.3, extracted archives could create symlinks which point anywhere on the file system, potentially resulting in a directory traversal attack if subsequent extraction utilties blindly follow these symlinks. More generically, Binwalk makes use of many third-party extraction utilties which may have unpatched security issues; Binwalk v2.3.3 and later allows external extraction tools to be run as an unprivileged user using the `run-as` command line option (this requires Binwalk itself to be run with root privileges). Additionally, Binwalk v2.3.3 and later will refuse to perform extraction as root unless `--run-as=root` is specified.
