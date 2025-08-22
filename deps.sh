@@ -1,5 +1,5 @@
 #!/bin/bash
-
+# for (old) binwalk, before v3 release
 # Check for the --yes command line argument to skip yes/no prompts
 if [ "$1" = "--yes" ]
 then
@@ -91,7 +91,7 @@ function install_sasquatch
 function install_jefferson
 {
     git clone --quiet --depth 1 --branch "master" https://github.com/sviehb/jefferson
-    (cd jefferson && $SUDO $PYTHON -mpip install -r requirements.txt && $SUDO $PYTHON setup.py install)
+    (cd jefferson && git checkout 860053f41aa114cabae650fddb37838c29be81b4 && $SUDO $PYTHON -mpip install -r requirements.txt && $SUDO $PYTHON setup.py install)
     $SUDO rm -rf jefferson
 }
 
@@ -115,8 +115,9 @@ function install_cramfstools
 
 function install_ubireader
 {
-    git clone --quiet --depth 1 --branch "master" https://github.com/jrspruitt/ubi_reader
-    (cd ubi_reader && $SUDO $PYTHON setup.py install)
+    # git clone --quiet --depth 1 --branch "master" https://github.com/jrspruitt/ubi_reader
+    git clone --quiet --depth 1 --branch "main" https://github.com/jrspruitt/ubi_reader 
+    (cd ubi_reader && git checkout fe3358645c3433ac222278810ed903ac8816457d && $SUDO $PYTHON -mpip install .)
     $SUDO rm -rf ubi_reader
 }
 

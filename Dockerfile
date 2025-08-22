@@ -1,4 +1,4 @@
-FROM python:3-buster AS build-and-install
+FROM python:3-bullseye AS build-and-install
 
 ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/src/app/bin \
     DEBIAN_FRONTEND=noninteractive
@@ -10,8 +10,8 @@ WORKDIR /tmp
 ### The prereqs that dont come from system's repo, are taken care of later
 RUN set -xue \
     && apt-get update -qy \
-    && apt-get -t buster dist-upgrade -yq --no-install-recommends -o Dpkg::Options::="--force-confold" \
-    && ./deps.sh --yes \
+    && apt-get -t bullseye dist-upgrade -yq --no-install-recommends -o Dpkg::Options::="--force-confold" \
+    && CFLAGS=-fcommon ./deps.sh --yes \
     && python3 setup.py install && binwalk -h > /dev/null \
     && apt-get -yq purge *-dev git build-essential gcc g++ \
     && apt-get -y autoremove \
